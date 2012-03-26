@@ -1,0 +1,89 @@
+= meritocracy
+
+ was originally based
+
+This plugin introduces a mixin adding a straighforward collective deliberation mechanism to any model.
+It is based on a weighted majority voting system for qualitative (categorical) items (i.e.assuming the set of decision has
+no natural ordering).
+
+As a measure of the quality of the consensus/inter-agreement, you can choose between a weighted variant of fleiss kappa (http://en.wikipedia.org/wiki/Fleiss%27_kappa) (by default) or the entropy (http://en.wikipedia.org/wiki/Entropy_(information_theory)) of the vote distribution
+but you can change it.  The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
+
+NOTE: this voting system has been developed to take (collective) decision about items, not rank items (e.g. by popularity).
+i.e. generally once a certain level of consensus is reached on a given item, a decision is taken and the vote is close.
+
+== scenario example
+You have a set of photos and would like to classify them according to 4 predefined categories. For that you ask the opinion to the public.
+As some people are better/more reliable than other, their votes can be weighted so they have more power in the collective decision
+
+== installation
+To use it, add it to your Gemfile:
+
+  gem 'acts-as-meritocracy'
+
+== Usage
+
+    class Photo < ActiveRecord::Base
+
+      act_as_meritocracy{:quorum=>4, :max=>10, :consensur_ratio=>0.7}
+    end
+
+    photo = Photo.create()
+    photo.submit_vote(user1, 4) #user1 votes for the decision 4,  by default the vote_weight=1
+    photo.submit_vote(user2, 1, 2) #user2 votes for the decision 1 with a vote_weight=2. A vote_weight=2 means that the voter has a vote equal to 2 normal voters (vote_weight=1)
+    photo.submit_vote(user1, 1) #user1 can change/update her vote
+    photo.submit_vote(user3, 2) #user3 vote for decision 2
+    photo.submit_vote(user4, 3,5) #user3 vote for decision 2
+
+    photo.best_decision #get the most (weighted) voted decision
+    =>3
+
+
+    photo.nb_votes(true) # get the number of votes - with the weight
+    => 1+2+1+5= 9
+
+    photo.nb_votes(false) # get the number of votes - without taking into account the weight
+    => 1+1+1+1= 4
+
+    photo.vote_distribution # get the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,{:decision1=>freq3}]. the frequency takes into account the vote weight.
+    => [{2=>3},{2=11},{3=51}]
+
+    # compute the consensus score based on the vote distribution
+    # by default I used a variante of the Fleiss Kappa metrics
+    photo.consensus
+    => 0.467
+    # An entropy-based computation of the consensus is also proposed
+    # (a perfect disagreement between 2 categories give a higher score than for 10 categories, less predictable)
+    photo.consensus("entropy")
+    =>0.637
+
+    photo.votes # retrieve the list of votes {decision, vote_weight) , so photo.votes.where(:vote=>1) get the list of votes having decision=1
+
+
+
+
+* the quorum (http://en.wikipedia.org/wiki/Quorum): the minimum number of voters to deliberate
+*
+Class photo
+
+
+
+end
+
+If you have a
+
+== Contributing to meritocracy
+ 
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+* Fork the project.
+* Start a feature/bugfix branch.
+* Commit and push until you are happy with your contribution.
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== Copyright
+
+Copyright (c) 2012 nm. See LICENSE.txt for
+further details.
+
