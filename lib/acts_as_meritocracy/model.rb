@@ -12,6 +12,8 @@ module ActsAsMeritocracy #:nodoc:
     #   end
     def acts_as_meritocracy(options={})
 
+      # todo trigger action when decision is reliable
+      # acts_as_meritocracy {:quorum=>, :min_consensus=>}}
       #adding class attribute
       #class_attribute :_min_votes, :_max_votes, :_consensus, :_status_update_fct
       #self._min_votes=options[:min_votes] || 3

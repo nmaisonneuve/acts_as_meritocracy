@@ -1,7 +1,4 @@
 = meritocracy
-
- was originally based
-
 This plugin introduces a mixin adding a straighforward collective deliberation mechanism to any model.
 It is based on a weighted majority voting system for qualitative (categorical) items (i.e.assuming the set of decision has
 no natural ordering).
@@ -19,13 +16,13 @@ As some people are better/more reliable than other, their votes can be weighted 
 == installation
 To use it, add it to your Gemfile:
 
-  gem 'acts-as-meritocracy'
+  gem 'acts_as_meritocracy'
 
 == Usage
 
     class Photo < ActiveRecord::Base
 
-      act_as_meritocracy{:quorum=>4, :max=>10, :consensur_ratio=>0.7}
+      act_as_meritocracy
     end
 
     photo = Photo.create()
@@ -59,31 +56,11 @@ To use it, add it to your Gemfile:
 
     photo.votes # retrieve the list of votes {decision, vote_weight) , so photo.votes.where(:vote=>1) get the list of votes having decision=1
 
+    end
 
 
-
-* the quorum (http://en.wikipedia.org/wiki/Quorum): the minimum number of voters to deliberate
-*
-Class photo
-
-
-
-end
-
-If you have a
-
-== Contributing to meritocracy
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
 == Copyright
 
-Copyright (c) 2012 nm. See LICENSE.txt for
-further details.
+Copyright (c) 2012 nm. See MIT-LICENSE.txt for further details.
 
