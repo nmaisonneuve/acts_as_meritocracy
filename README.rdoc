@@ -63,7 +63,8 @@ To use it, add it to your Gemfile:
     item.consensus
     => 0.361
     # An entropy-based computation of the consensus is also proposed
-    # (a perfect disagreement between 2 categories give a higher score than for 10 categories, less predictable)
+    # (A perfect disagreement between 2 categories give a higher score
+    # than for 10 categories, less predictable)
     item.consensus("entropy")
     =>0.063
 
