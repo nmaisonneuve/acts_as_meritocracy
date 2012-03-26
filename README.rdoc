@@ -24,23 +24,38 @@ To use it, add it to your Gemfile:
     end
 
     item= Item.create()
-    item.submit_vote(user1, 4) #user1 votes for the decision 4,  by default the vote_weight=1
-    item.submit_vote(user2, 1, 2) #user2 votes for the decision 1 with a vote_weight=2. A vote_weight=2 means that the voter has a vote equal to 2 normal voters (vote_weight=1)
-    item.submit_vote(user1, 1) #user1 can change/update her vote
-    item.submit_vote(user3, 2) #user3 vote for decision 2
-    item.submit_vote(user4, 3,5) #user3 vote for decision 2
 
-    item.best_decision #get the most (weighted) voted decision
+    #user1 votes for the decision 4,  by default the vote_weight=1
+    item.submit_vote(user1, 4)
+
+    # user2 votes for the decision 1 with a vote_weight=2. A vote_weight=2 means that
+    # the voter has a vote equal to 2 normal voters (vote_weight=1)
+    item.submit_vote(user2, 1, 2)
+
+    #user1 can change/update her vote
+    item.submit_vote(user1, 1)
+
+    #user3 vote for decision 2
+    item.submit_vote(user3, 2)
+
+    #user4 vote for decision 2
+    item.submit_vote(user4, 3,5)
+
+    #get the most (weighted) voted decision
+    item.best_decision
     =>3
 
-
-    item.nb_votes(true) # get the number of votes - with the weight
+    # get the number of votes - with the weight
+    item.nb_votes(true)
     => 1+2+1+5= 9
 
-    item.nb_votes(false) # get the number of votes - without taking into account the weight
+    # get the number of votes - without taking into account the weight
+    item.nb_votes(false)
     => 1+1+1+1= 4
 
-    item.vote_distribution # get the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,{:decision1=>freq3}]. the frequency takes into account the vote weight.
+    # get the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,].
+    # the frequency takes into account the vote weight.
+    item.vote_distribution
     => [{1=>3},{2=1},{3=5}]
 
     # compute the consensus score based on the vote distribution
@@ -52,7 +67,19 @@ To use it, add it to your Gemfile:
     item.consensus("entropy")
     =>0.063
 
-    item.votes # retrieve the list of votes {decision, vote_weight) , so item.votes.where(:vote=>1) get the list of votes having decision=1
+    # retrieve the list of votes {decision, vote_weight).
+    # so item.votes.where(:vote=>1) get the list of votes having decision=1
+    item.votes
+    => [Vote1<>.,Vote2<>., .., Voten<>. ]
+
+    #get all the items voted by user1
+    item.voted_by?(user1)
+    => yes
+
+    #get all the items voted by user1
+    Item.voted_by(user1)
+    =>[item]
+
 
     end
 
