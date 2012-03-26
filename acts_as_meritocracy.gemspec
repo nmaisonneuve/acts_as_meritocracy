@@ -3,10 +3,11 @@
 lib = File.expand_path('../lib', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
+require 'acts_as_meritocracy/version'
 
 Gem::Specification.new do |s|
   s.name = "acts_as_meritocracy"
-  s.version = "0.1"
+  s.version = ActsAsMeritocracy::VERSION
 
   s.required_rubygems_version = '>= 1.9.0'
   s.homepage = "https://github.com/nmaisonneuve/acts_as_meritocracy"

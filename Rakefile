@@ -3,6 +3,7 @@ require 'rubygems'
 require 'bundler' unless defined?(Bundler)
 
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+require 'acts_as_meritocracy/version'
 
 begin
   Bundler.setup(:default, :development)
@@ -26,8 +27,9 @@ task :build do
 end
 
 task :release => :build do
-  system "gem push acts_as_meritocracy-0.1.gem"
-  system "rm acts_as_meritocracy-0.1.gem"
+
+  system "gem push acts_as_meritocracy-#{ActsAsMeritocracy::VERSION}.gem"
+  system "rm acts_as_meritocracy-#{ActsAsMeritocracy::VERSION}.gem"
 end
 
 task :default => :test
