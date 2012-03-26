@@ -35,54 +35,51 @@ To use it, add it to your Gemfile:
     #user1 can change/update her vote
     item.submit_vote(user1, 1)
 
-    #user3 vote for decision 2
+    #user3 votes for decision 2
     item.submit_vote(user3, 2)
 
-    #user4 vote for decision 2
+    #user4 votes for decision 2
     item.submit_vote(user4, 3,5)
 
-    #get the most (weighted) voted decision
+    #getting the most (weighted) voted decision
     item.best_decision
     =>3
 
-    # get the number of votes - with the weight
+    # getting the number of votes - with the weight
     item.nb_votes(true)
     => 1+2+1+5= 9
 
-    # get the number of votes - without taking into account the weight
+    # getting the number of votes - without taking into account the weight
     item.nb_votes(false)
     => 1+1+1+1= 4
 
-    # get the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,].
+    # getting the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,].
     # the frequency takes into account the vote weight.
     item.vote_distribution
     => [{1=>3},{2=1},{3=5}]
 
-    # compute the consensus score based on the vote distribution
+    # computing the consensus score based on the vote distribution
     # by default I used a variante of the Fleiss Kappa metrics
     item.consensus
     => 0.361
-    # An entropy-based computation of the consensus is also proposed
+    # Alternative: computing an entropy-based measure of the consensus
     # (A perfect disagreement between 2 categories give a higher score
     # than for 10 categories, less predictable)
     item.consensus("entropy")
     =>0.063
 
-    # retrieve the list of votes {decision, vote_weight).
+    # retrieving the list of votes {decision, vote_weight).
     # so item.votes.where(:vote=>1) get the list of votes having decision=1
     item.votes
     => [Vote1<>.,Vote2<>., .., Voten<>. ]
 
-    #get all the items voted by user1
+    #getting all the items voted by user1
     item.voted_by?(user1)
     => yes
 
-    #get all the items voted by user1
+    #getting all the items voted by user1
     Item.voted_by(user1)
     =>[item]
-
-
-    end
 
 
 
