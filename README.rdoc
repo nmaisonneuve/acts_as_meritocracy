@@ -1,9 +1,7 @@
 = meritocracy
-This plugin introduces a mixin adding a straighforward collective deliberation mechanism to any model.
-It is based on a weighted majority voting system for qualitative (categorical) items (i.e.assuming the set of decision has
-no natural ordering).
+This plugin introduces a mixin to get a weigted voting system for qualitative (categorical) items.
 
-As a measure of the quality of the consensus/inter-agreement, you can choose between a weighted variant of fleiss kappa (http://en.wikipedia.org/wiki/Fleiss%27_kappa) (by default) or the entropy (http://en.wikipedia.org/wiki/Entropy_(information_theory)) of the vote distribution
+As a measure of the quality of the consensus/inter-rater agreement, you can choose between a weighted variant of fleiss kappa (http://en.wikipedia.org/wiki/Fleiss%27_kappa) (by default) or the entropy (http://en.wikipedia.org/wiki/Entropy_(information_theory)) of the vote distribution
 but you can change it.  The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
 
 NOTE: this voting system has been developed to take (collective) decision about items, not rank items (e.g. by popularity).
