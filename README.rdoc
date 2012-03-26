@@ -2,7 +2,7 @@
 
 Mixin to enable a weighted majority voting system for any model with qualitative decisions/categories.
 
-As measure of consensus/inter-rater agreement, you can choose between a weighted variant of the {Fleiss's Kappa} [http://en.wikipedia.org/wiki/Fleiss%27_kappa] (by default) or {the entropy} [http://en.wikipedia.org/wiki/Entropy_(information_theory)] of the distribution of votes.
+As measure of consensus/inter-rater agreement, you can choose between a weighted variant of the {Fleiss's Kappa}[http://en.wikipedia.org/wiki/Fleiss%27_kappa] (by default) or {the entropy}[http://en.wikipedia.org/wiki/Entropy_(information_theory)] of the distribution of votes.
 The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
 
 NOTE: this voting system has been developed to take (collective) a decision about items, not rank items (e.g. by popularity).
