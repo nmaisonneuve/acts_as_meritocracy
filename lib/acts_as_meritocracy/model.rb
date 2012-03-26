@@ -8,11 +8,11 @@ module ActsAsMeritocracy #:nodoc:
 
     # Example:
     #   class User < ActiveRecord::Base
-    #     acts_as_meritocracy {:min_votes=>, :max_votes=>}}
+    #     acts_as_meritocracy
     #   end
     def acts_as_meritocracy(options={})
 
-      # todo trigger action when decision is reliable
+      # TODO trigger action when decision is reliable
       # acts_as_meritocracy {:quorum=>, :min_consensus=>}}
       #adding class attribute
       #class_attribute :_min_votes, :_max_votes, :_consensus, :_status_update_fct
@@ -23,7 +23,7 @@ module ActsAsMeritocracy #:nodoc:
 
       has_many :votes, :as => :voteable, :dependent => :destroy
       has_many :voters, :through => :votes
-      attr_accessible :voters, :score, :num_votes, :entropy # entropy
+      attr_accessible :voters
 
 
       scope :voted_by, lambda { |user|
