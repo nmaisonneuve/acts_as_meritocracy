@@ -2,15 +2,14 @@
 
 This plugin introduces a mixin to enable a weighted majority voting system for any model with qualitative decisions/categories.
 
-As a measure of the quality of the consensus/inter-rater agreement, you can choose between a weighted variant of fleiss kappa (http://en.wikipedia.org/wiki/Fleiss%27_kappa) (by default) or the entropy (http://en.wikipedia.org/wiki/Entropy_(information_theory)) of the vote distribution
-but you can change it.  The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
+As a measure of the quality of the consensus/inter-rater agreement, you can choose between a weighted variant of fleiss kappa (http://en.wikipedia.org/wiki/Fleiss%27_kappa) (by default) or the entropy (http://en.wikipedia.org/wiki/Entropy_(information_theory)) of the distribution of votes. The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
 
-NOTE: this voting system has been developed to take (collective) decision about items, not rank items (e.g. by popularity).
+NOTE: this voting system has been developed to take (collective) a decision about items, not rank items (e.g. by popularity).
 i.e. generally once a certain level of consensus is reached on a given item, a decision is taken and the vote is close.
 
 == scenario example
-You have a set of items and would like to classify them according to 4 predefined categories. For that you ask the opinion to the public.
-As some people are better/more reliable than other, their votes can be weighted so they have more power in the collective decision
+You have a set of items and would like to classify them according to n predefined categories. For that you ask the opinion of the public.
+As some people are better/more reliable than other, their votes can be weighted so they have more power in the collective decision.
 
 == installation
 To use it, add it to your Gemfile:
