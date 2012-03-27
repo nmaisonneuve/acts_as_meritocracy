@@ -1,7 +1,6 @@
 = Acts_as_Meritocracy
 
-Mixin to enable a weighted majority voting system for any model with qualitative decisions/categories.
-
+Mixin enabling a weighted majority voting system for any model with qualitative decisions/categories.
 As measure of consensus/inter-rater agreement, you can choose between a weighted variant of the {Fleiss's Kappa}[http://en.wikipedia.org/wiki/Fleiss%27_kappa] (by default) or {the entropy}[http://en.wikipedia.org/wiki/Entropy_(information_theory)] of the distribution of votes.
 The consensus score is in the interval [0,1]. very high consensus=1 , very low consensus=0
 
@@ -43,6 +42,9 @@ To use it, add it to your Gemfile:
     item.submit_vote(user4, 3,5)
 
     #getting the most (weighted) voted decision
+    # tie management: you can manage tie with 2 methods
+    # -best_decision("random") (by default) returns randomly one of the categories having the same freq
+    # -best_desion("nodecision") returns nil if a tie is detected
     item.best_decision
     =>3
 
@@ -57,20 +59,20 @@ To use it, add it to your Gemfile:
     # getting the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,].
     # the frequency takes into account the vote weight.
     item.vote_distribution
-    => [{1=>3},{2=1},{3=5}]
+    => [{vote=>1, freq=>3},{vote=>2, freq=>1},{vote=>3,freq=>5}]
 
     # computing the consensus score based on the vote distribution
     # by default I used a variante of the Fleiss Kappa metrics
     item.consensus
     => 0.361
     # Alternative: computing an entropy-based measure of the consensus
-    # (A perfect disagreement between 2 categories give a higher score
+    # (A perfect disagreement between 2 categories gives a higher score
     # than for 10 categories, less predictable)
     item.consensus("entropy")
     =>0.063
 
     # retrieving the list of votes {decision, vote_weight).
-    # so item.votes.where(:vote=>1) get the list of votes having decision=1
+    # so item.votes.where(:vote=>1) retrieves the list of votes having decision=1
     item.votes
     => [Vote1<>.,Vote2<>., .., Voten<>. ]
 
@@ -81,10 +83,3 @@ To use it, add it to your Gemfile:
     #getting all the items voted by user1
     Item.voted_by(user1)
     =>[item]
-
-
-
-== Copyright
-
-Copyright (c) 2012 nm. See MIT-LICENSE.txt for further details.
-
