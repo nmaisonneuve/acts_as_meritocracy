@@ -7,9 +7,9 @@ The consensus score is in the interval [0,1]. very high consensus=1 , very low c
 NOTE: this voting system has been developed to take (collective) a decision about items, not rank items (e.g. by popularity).
 i.e. generally once a certain level of consensus is reached on a given item, a decision is taken and the vote is close.
 
-== scenario example
+== scenario
 You have a set of items and would like to classify them according to n predefined categories. For that you ask the opinion of the public.
-As some people are better/more reliable than other, their votes can be weighted so they have more power in the collective decision.
+Since some people are better/more reliable than others, their votes can be weighted so they have more power in the collective decision.
 
 == installation
 To use it, add it to your Gemfile:
@@ -19,11 +19,10 @@ To use it, add it to your Gemfile:
 == Usage
 
     class Item < ActiveRecord::Base
-
       act_as_meritocracy
     end
 
-    item= Item.create()
+    item = Item.create()
 
     #user1 votes for the decision 4,  by default the vote_weight=1
     item.submit_vote(user1, 4)
@@ -32,34 +31,34 @@ To use it, add it to your Gemfile:
     # the voter has a vote equal to 2 normal voters (vote_weight=1)
     item.submit_vote(user2, 1, 2)
 
-    #user1 can change/update her vote
+    # user1 can change/update her vote
     item.submit_vote(user1, 1)
 
-    #user3 votes for decision 2
+    # user3 votes for decision 2
     item.submit_vote(user3, 2)
 
-    #user4 votes for decision 2
+    # user4 votes for decision 2
     item.submit_vote(user4, 3,5)
 
-    #getting the most (weighted) voted decision
+    # getting the most (weighted) voted decision
     # tie management: you can manage tie with 2 methods
-    # -best_decision("random") (by default) returns randomly one of the categories having the same freq
-    # -best_desion("nodecision") returns nil if a tie is detected
+    #  - best_decision("random") (by default) returns randomly one of the categories having the same highest frequency
+    #  - best_desion("nodecision") returns nil if a tie is detected
     item.best_decision
     =>3
 
     # getting the number of votes - with the weight
     item.nb_votes(true)
-    => 1+2+1+5= 9
+    => 1 + 2 + 1 + 5 = 9
 
     # getting the number of votes - without taking into account the weight
     item.nb_votes(false)
-    => 1+1+1+1= 4
+    => 1 + 1 + 1 + 1 = 4
 
     # getting the frequency distribution of the decisions [{:decision1=>freq1},{:decision1=>freq2}, ..,].
     # the frequency takes into account the vote weight.
     item.vote_distribution
-    => [{vote=>1, freq=>3},{vote=>2, freq=>1},{vote=>3,freq=>5}]
+    => [ {vote => 1, freq => 3},{vote => 2, freq => 1},{vote => 3,freq => 5} ]
 
     # computing the consensus score based on the vote distribution
     # by default I used a variante of the Fleiss Kappa metrics
@@ -76,10 +75,10 @@ To use it, add it to your Gemfile:
     item.votes
     => [Vote1<>.,Vote2<>., .., Voten<>. ]
 
-    #getting all the items voted by user1
+    # getting all the items voted by user1
     item.voted_by?(user1)
     => yes
 
-    #getting all the items voted by user1
+    # getting all the items voted by user1
     Item.voted_by(user1)
     =>[item]
